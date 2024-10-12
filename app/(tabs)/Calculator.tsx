@@ -1,5 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import React, { useState, useEffect, useRef } from "react";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  LayoutChangeEvent,
+} from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { useTheme } from "../context/ThemeContext";
 import { Audio } from "expo-av";
@@ -10,6 +16,8 @@ const Calculator = () => {
   const [prevValue, setPrevValue] = useState<number | null>(null);
   const [operation, setOperation] = useState<string | null>(null);
   const [sound, setSound] = useState<Audio.Sound | null>(null);
+  const [fontSize, setFontSize] = useState(70);
+  const displayRef = useRef<View>(null);
 
   // Function to play the sound
   const playSong = async () => {
@@ -37,6 +45,19 @@ const Calculator = () => {
       }
     };
   }, [sound]);
+
+  useEffect(() => {
+    adjustFontSize();
+  }, [display]);
+
+  const adjustFontSize = () => {
+    if (displayRef.current) {
+      displayRef.current.measure((x, y, width, height, pageX, pageY) => {
+        const newFontSize = Math.min(70, (width * 0.9) / display.length);
+        setFontSize(newFontSize);
+      });
+    }
+  };
 
   const handleNumberPress = (num: string) => {
     if (display === "0") {
@@ -118,12 +139,14 @@ const Calculator = () => {
       ]}
     >
       <StatusBar style={theme === "light" ? "dark" : "light"} />
-      <View style={styles.display}>
+      <View style={styles.display} ref={displayRef} onLayout={adjustFontSize}>
         <Text
           style={[
             styles.displayText,
-            { color: theme === "light" ? "#333" : "#fff" },
+            { color: theme === "light" ? "#333" : "#fff", fontSize: fontSize },
           ]}
+          numberOfLines={1}
+          adjustsFontSizeToFit
         >
           {display}
         </Text>
@@ -185,9 +208,12 @@ const styles = StyleSheet.create({
   display: {
     padding: 20,
     alignItems: "flex-end",
+    justifyContent: "center",
+    minHeight: 120,
   },
   displayText: {
     fontSize: 70,
+    textAlign: "right",
   },
   buttonContainer: {
     flexDirection: "row",

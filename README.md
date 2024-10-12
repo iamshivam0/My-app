@@ -1,33 +1,74 @@
-# Welcome to your Expo app 👋
+# Productivity App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A versatile mobile application designed to boost productivity with features like a calculator, Pomodoro timer, and more.
 
-## Get started
+## Features
 
-1. Install dependencies
+### 1. Calculator
 
-   ```bash
-   npm install
-   ```
+- Basic arithmetic operations
+- Scientific functions
+- History of calculations
 
-2. Start the app
+### 2. Pomodoro Timer
 
-   ```bash
-    npx expo start
-   ```
+- Customizable work and break intervals
+- Visual and audio notifications
+- Session tracking
 
-In the output, you'll find options to open the app in a
+### 3. Swipeable Tab Navigation
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+- Smooth navigation between app features
+- Intuitive user interface
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+### 4. Theme Customization
 
-## Learn more
+- Light and dark mode options
+- Personalized color schemes
 
-To learn more about developing your project with Expo, look at the following resources:
+### 5. User Profiles
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+- Create and manage user profiles
+- Personalized settings and preferences
+
+## Technical Details
+
+### File Structure
+
+- `app/(tabs)/Calculator.tsx`: Calculator component and logic
+- `app/(tabs)/Pomodoro.tsx`: Pomodoro timer component and logic
+- `app/(tabs)/index.tsx`: Main app screen or dashboard
+- `app/(tabs)/_layout.tsx`: Tab layout configuration
+- `components/SwipeableTabView.tsx`: Custom swipeable tab navigation component
+- `index.js`: Entry point of the application
+- `context/ProfileContext.tsx`: Context for managing user profiles
+- `context/ThemeContext.tsx`: Context for managing app themes
+
+### Technologies Used
+
+- React Native
+- Expo
+- React Navigation
+- Context API for state management
+
+## Installation
+
+1. Clone the repository
+2. Run `npm install` to install dependencies
+3. Run `expo start` to launch the development server
+
+## Usage
+
+1. Open the app on your device or emulator
+2. Navigate through the tabs to access different features
+3. Use the calculator for quick computations
+4. Set up Pomodoro sessions for focused work intervals
+5. Customize your profile and app theme in the settings
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is licensed under the MIT License.
