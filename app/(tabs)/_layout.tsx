@@ -7,7 +7,6 @@ import { View, Text, StyleSheet } from "react-native";
 export default function TabsLayout() {
   const { profileName } = useProfile();
   const { colors } = useTheme();
-
   return (
     <Tabs
       screenOptions={{
@@ -67,6 +66,15 @@ export default function TabsLayout() {
           ),
         }}
       />
+      <Tabs.Screen
+        name="Calculator"
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="calculator" size={size} color={color} />
+          ),
+        }}
+      />
+
       <Tabs.Screen
         name="settings"
         options={{
