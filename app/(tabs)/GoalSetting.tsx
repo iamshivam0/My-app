@@ -6,11 +6,11 @@ import {
   TouchableOpacity,
   FlatList,
   StyleSheet,
-  Alert,
 } from "react-native";
 import { useTheme } from "../context/ThemeContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Ionicons } from "@expo/vector-icons";
+import DeleteGoalModal from "../../components/DeleteGoalModal";
 
 interface Goal {
   id: string;
@@ -24,6 +24,8 @@ const GoalSetting = () => {
   const [goals, setGoals] = useState<Goal[]>([]);
   const [newGoalTitle, setNewGoalTitle] = useState("");
   const [newGoalDescription, setNewGoalDescription] = useState("");
+  const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
+  const [goalToDelete, setGoalToDelete] = useState<string | null>(null);
 
   useEffect(() => {
     loadGoals();
@@ -73,31 +75,23 @@ const GoalSetting = () => {
     saveGoals(updatedGoals);
   };
 
-  const deleteGoal = (id: string) => {
-    Alert.alert(
-      "Delete Goal",
-      "Are you sure you want to delete this goal?",
-      [
-        {
-          text: "Cancel",
-          style: "cancel",
-          onPress: () => {},
-        },
-        {
-          text: "Delete",
-          style: "destructive",
-          onPress: () => {
-            const updatedGoals = goals.filter((goal) => goal.id !== id);
-            setGoals(updatedGoals);
-            saveGoals(updatedGoals);
-          },
-        },
-      ],
-      {
-        cancelable: true,
-        userInterfaceStyle: colors.background === "#ffffff" ? "light" : "dark",
-      }
-    );
+  const showDeleteModal = (id: string) => {
+    setGoalToDelete(id);
+    setIsDeleteModalVisible(true);
+  };
+
+  const hideDeleteModal = () => {
+    setIsDeleteModalVisible(false);
+    setGoalToDelete(null);
+  };
+
+  const deleteGoal = () => {
+    if (goalToDelete) {
+      const updatedGoals = goals.filter((goal) => goal.id !== goalToDelete);
+      setGoals(updatedGoals);
+      saveGoals(updatedGoals);
+      hideDeleteModal();
+    }
   };
 
   const renderGoalItem = ({ item }: { item: Goal }) => (
@@ -106,7 +100,7 @@ const GoalSetting = () => {
         <Text style={[styles.goalTitle, { color: colors.text }]}>
           {item.title}
         </Text>
-        <TouchableOpacity onPress={() => deleteGoal(item.id)}>
+        <TouchableOpacity onPress={() => showDeleteModal(item.id)}>
           <Ionicons
             name="trash-outline"
             size={24}
@@ -185,6 +179,11 @@ const GoalSetting = () => {
         renderItem={renderGoalItem}
         keyExtractor={(item) => item.id}
         style={styles.goalList}
+      />
+      <DeleteGoalModal
+        isVisible={isDeleteModalVisible}
+        onClose={hideDeleteModal}
+        onDelete={deleteGoal}
       />
     </View>
   );

@@ -1,6 +1,7 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Drawer } from "expo-router/drawer";
+import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { useProfile } from "../context/ProfileContext";
 import { useTheme } from "../context/ThemeContext";
@@ -8,6 +9,7 @@ import { useTheme } from "../context/ThemeContext";
 export default function Layout() {
   const { profileName } = useProfile();
   const { colors } = useTheme();
+  const router = useRouter();
 
   const tabScreens: {
     name: string;
@@ -19,6 +21,7 @@ export default function Layout() {
     { name: "Pomodoro", title: "Pomodoro", icon: "timer-outline" },
     { name: "Calculator", title: "Calculator", icon: "calculator" },
     { name: "GoalSetting", title: "Goal Setting", icon: "flag-outline" },
+    { name: "ExpenseTracker", title: "Expenses", icon: "cash-outline" },
     { name: "settings", title: "Settings", icon: "settings-outline" },
   ];
 
@@ -48,12 +51,15 @@ export default function Layout() {
             headerRight: () => (
               <View style={styles.headerRight}>
                 {profileName && (
-                  <Text
-                    style={[styles.profileName, { color: colors.secondary }]}
-                  >
-                    Welcome, {profileName}
-                  </Text>
+                  <TouchableOpacity onPress={() => router.push("/settings")}>
+                    <Text
+                      style={[styles.profileName, { color: colors.secondary }]}
+                    >
+                      Welcome, {profileName}
+                    </Text>
+                  </TouchableOpacity>
                 )}
+                {/* Removed the settings icon */}
               </View>
             ),
           }}
