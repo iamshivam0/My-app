@@ -28,6 +28,14 @@ const Calculator = () => {
     await sound.playAsync();
   };
 
+  const playSong2 = async () => {
+    const { sound } = await Audio.Sound.createAsync(
+      require("../../assets/69.mp3")
+    );
+    setSound(sound); // Save the sound object in state
+    await sound.playAsync();
+  };
+
   // Function to stop the sound
   const stopSong = async () => {
     if (sound) {
@@ -96,6 +104,9 @@ const Calculator = () => {
       if (result === 7) {
         await playSong(); // Play song only if result is 7
         setDisplay("Thala for a reason");
+      } else if (result === 69) {
+        await playSong2(); // Play song only if result is 69
+        setDisplay("ONII-CHANN");
       } else {
         setDisplay(result.toString());
       }
