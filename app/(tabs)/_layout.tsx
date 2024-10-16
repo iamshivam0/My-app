@@ -102,14 +102,16 @@ export default function Layout() {
     title: string;
     icon: keyof typeof Ionicons.glyphMap;
   }[] = [
-    { name: "index", title: "Counter", icon: "calculator-outline" },
     { name: "Todopage", title: "Todo", icon: "list-outline" },
     { name: "Pomodoro", title: "Pomodoro", icon: "timer-outline" },
+    { name: "borrow", title: "Borrow", icon: "cash-outline" },
     { name: "Calculator", title: "Calculator", icon: "calculator" },
     { name: "GoalSetting", title: "Goal Setting", icon: "flag-outline" },
     { name: "ExpenseTracker", title: "Expenses", icon: "cash-outline" },
     { name: "Notes", title: "Notes", icon: "clipboard-outline" },
+    { name: "index", title: "Counter", icon: "calculator-outline" },
     { name: "settings", title: "Settings", icon: "settings-outline" },
+    // { name: "lend", title: "Lend", icon: "cash-outline" },
   ];
 
   return (
